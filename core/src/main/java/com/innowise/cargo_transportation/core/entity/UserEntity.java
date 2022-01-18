@@ -2,23 +2,17 @@ package com.innowise.cargo_transportation.core.entity;
 
 import lombok.Data;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-import java.sql.Date;
-import java.util.Set;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -41,7 +35,8 @@ public class UserEntity {
     @Column(name = "client_id")
     private Long clientId;
 
-    private Date bornDate;
+    @Past
+    private LocalDate bornDate;
 
     @NotNull
     @Email
@@ -50,6 +45,8 @@ public class UserEntity {
 
     @Size(max = 20)
     private String town;
+
+    private String street;
 
     @Size(max = 20)
     private String house;
@@ -72,9 +69,9 @@ public class UserEntity {
     @Size(max = 50)
     private String issuedBy;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> UserRole;
+//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+//    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+//    @Enumerated(EnumType.STRING)
+//    private Set<Role> UserRole;
 
 }
