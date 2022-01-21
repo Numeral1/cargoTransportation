@@ -14,49 +14,49 @@ public class UserRequest {
 
     private Long id;
 
-//    @Size(max = 20)
+    @Size(max = 20)
     private String name;
 
-//    @NotNull
-//    @Size(max = 20)
+    @NotNull
+    @Size(max = 20)
     private String surname;
 
-//    @Size(max = 20)
+    @Size(max = 20)
     private String patronymic;
 
     private Long clientId;
 
-//    @Past
+    @Past
     private LocalDate bornDate;
 
-//    @NotNull
-//    @Email
-//    @Size(max = 50)
+    @NotNull
+    @Email
+    @Size(max = 50)
     private String email;
 
-//    @Size(max = 20)
+    @Size(max = 20)
     private String town;
 
     private String street;
 
-//    @Size(max = 20)
+    @Size(max = 20)
     private String house;
 
-//    @Size(max = 5)
+    @Size(max = 5)
     private String flat;
 
-//    @NotNull
-//    @Size(min = 5, max = 15)
+    @NotNull
+    @Size(min = 5, max = 15)
     private String login;
 
-//    @NotNull
-//    @Size(min = 5, max = 72)
+    @NotNull
+    @Size(min = 5, max = 72)
     private String password;
 
-//    @Size(max =30)
+    @Size(max =30)
     private String passportNum;
 
-//    @Size(max = 50)
+    @Size(max = 50)
     private String issuedBy;
 
     public static UserEntity fromUserRequest(UserRequest userRequest){

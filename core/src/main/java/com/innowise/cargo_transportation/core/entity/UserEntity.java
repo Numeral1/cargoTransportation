@@ -1,6 +1,7 @@
 package com.innowise.cargo_transportation.core.entity;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,51 +23,53 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(max = 20)
+//    @Size(max = 20)
     private String name;
 
-    @NotNull
-    @Size(max = 20)
+//    @NotNull
+//    @Size(max = 20)
     private String surname;
 
-    @Size(max = 20)
+//    @Size(max = 20)
     private String patronymic;
 
-    @Column(name = "client_id")
+//    @Column(name = "client_id")
     private Long clientId;
 
-    @Past
+//    @Past
+//    @Column(name = "born_date")
+
     private LocalDate bornDate;
 
-    @NotNull
-    @Email
-    @Size(max = 50)
+//    @NotNull
+//    @Email
+//    @Size(max = 50)
     private String email;
 
-    @Size(max = 20)
+//    @Size(max = 20)
     private String town;
 
     private String street;
 
-    @Size(max = 20)
+//    @Size(max = 20)
     private String house;
 
-    @Size(max = 5)
+//    @Size(max = 5)
     private String flat;
 
-    @NotNull
-    @Size(min = 5, max = 15)
+//    @NotNull
+//    @Size(min = 5, max = 15)
     private String login;
 
-    @NotNull
-    @Size(min = 5, max = 72)
+//    @NotNull
+//    @Size(min = 5, max = 72)
     private String password;
 
-    @Size(max =30)
+//    @Size(max =30)
     @Column(name = "passport_num")
     private String passportNum;
 
-    @Size(max = 50)
+//    @Size(max = 50)
     private String issuedBy;
 
 //    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
