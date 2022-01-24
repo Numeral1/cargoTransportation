@@ -41,23 +41,4 @@ public class UserResponse {
     }
 
 
-//    public UserResponse toUserResponse(UserEntity userEntity){
-//        UserResponse userResponse = new UserResponse();
-//        userResponse.setId(userEntity.getId());
-//        userResponse.setName(userEntity.getName());
-//        userResponse.setSurname(userEntity.getSurname());
-//        userResponse.setPatronymic(userEntity.getPatronymic());
-//        userResponse.setBornDate(userEntity.getBornDate());
-//        userResponse.setClientId(userEntity.getClientId());
-//        userResponse.setEmail(userEntity.getEmail());
-//        userResponse.setTown(userEntity.getTown());
-//        userResponse.setStreet(userEntity.getStreet());
-//        userResponse.setHouse(userEntity.getHouse());
-//        userResponse.setFlat(userEntity.getFlat());
-//        userResponse.setLogin(userEntity.getLogin());
-//        userResponse.setPassword(userEntity.getPassword());
-//        userResponse.setPassportNum(userEntity.getPassportNum());
-//        userResponse.setIssuedBy(userEntity.getIssuedBy());
-//        return userResponse;
-//    }
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -24,7 +25,7 @@ public class UserRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<URI> create(@RequestBody UserRequest userRequest){
+    public ResponseEntity<URI> create(@RequestBody @Valid UserRequest userRequest){
         Long userId = userService.createUser(userRequest);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -38,12 +39,6 @@ public class UserRestController {
     public UserResponse findById(@PathVariable("id") Long id){
         return userService.findUserById(id);
     }
-
-//    @GetMapping
-//    public Page<UserResponse> findByFilter(@RequestBody UserPageRequest userPageRequest){
-//        Page<UserResponse> pageUsers = userService.findList(userPageRequest);
-//        return pageUsers;
-//    }
 
     @GetMapping
     public UserListResponse findByFilter(UserParamsRequest userParamsRequest){

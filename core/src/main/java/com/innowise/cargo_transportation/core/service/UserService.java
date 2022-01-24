@@ -31,7 +31,6 @@ public class UserService {
     }
 
     public UserResponse findUserById(Long id){
-//    UserResponse userResponse = new UserResponse();
         Optional<UserEntity> byId = userRepository.findById(id);
         UserEntity user = new UserEntity();
         if (byId.isPresent()) {
