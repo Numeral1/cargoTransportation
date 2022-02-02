@@ -1,5 +1,6 @@
 package com.innowise.cargo_transportation.core.entity;
 
 public enum Role {
-    USER, ADMIN
+    SYS_ADMIN, ADMIN, DISPATCHER, MANAGER, DRIVER, COMPANY_OWNER
+
 }

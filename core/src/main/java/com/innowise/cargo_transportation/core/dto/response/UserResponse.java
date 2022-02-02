@@ -1,9 +1,14 @@
 package com.innowise.cargo_transportation.core.dto.response;
 
+import com.innowise.cargo_transportation.core.entity.Role;
 import com.innowise.cargo_transportation.core.entity.UserEntity;
+import com.innowise.cargo_transportation.core.entity.UserRoleEntity;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Data
 public class UserResponse {
     private Long id;
@@ -21,6 +26,8 @@ public class UserResponse {
     private String password;
     private String passportNum;
     private String issuedBy;
+    private Set<Role> roles;
+
 
     public UserResponse(UserEntity userEntity) {
         id = userEntity.getId();
@@ -38,6 +45,9 @@ public class UserResponse {
         password = userEntity.getPassword();
         passportNum = userEntity.getPassportNum();
         issuedBy = userEntity.getIssuedBy();
+        roles = userEntity.getUserRole().stream()
+                .map(UserRoleEntity::getRole)
+                .collect(Collectors.toSet());
     }
 
 
