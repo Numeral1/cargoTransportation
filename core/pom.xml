@@ -17,6 +17,8 @@
         <maven.compiler.target>11</maven.compiler.target>
         <flyway.version>8.4.1</flyway.version>
         <querydsl.version>5.0.0</querydsl.version>
+        <jsonwebtoken.version>0.11.2</jsonwebtoken.version>
+        <blaze-persistence.version>1.6.3</blaze-persistence.version>
     </properties>
     <dependencies>
         <dependency>
@@ -57,8 +59,35 @@
             <artifactId>querydsl-jpa</artifactId>
             <version>${querydsl.version}</version>
         </dependency>
+        <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-impl</artifactId>
+        <version>${jsonwebtoken.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-jackson</artifactId>
+        <version>${jsonwebtoken.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+    </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.blazebit</groupId>-->
+<!--            <artifactId>blaze-persistence-integration-querydsl-expressions</artifactId>-->
+<!--            <version>${blaze-persistence.version}</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.blazebit</groupId>-->
+<!--            <artifactId>blaze-persistence-integration-hibernate-5.4</artifactId>-->
+<!--            <version>${blaze-persistence.version}</version>-->
+<!--            <scope>runtime</scope>-->
+<!--        </dependency>-->
 
-    </dependencies>
+
+</dependencies>
     <build>
         <plugins>
             <plugin>

@@ -1,6 +1,6 @@
 package com.innowise.cargo_transportation.web;
 
-
+import com.innowise.cargo_transportation.web.security.BCryptConfig;
 import com.innowise.cargo_transportation.core.configuration.CoreConfiguration;
 import com.innowise.cargo_transportation.core.configuration.PersistenceConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@Import({CoreConfiguration.class, PersistenceConfiguration.class})
+@Import({CoreConfiguration.class, PersistenceConfiguration.class, BCryptConfig.class})
 public class CargoTransportationApplication {
 
     public static void main(String[] args) {

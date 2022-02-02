@@ -1,6 +1,5 @@
 package com.innowise.cargo_transportation.core.dto.request;
 
-import jdk.jfr.Timestamp;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 

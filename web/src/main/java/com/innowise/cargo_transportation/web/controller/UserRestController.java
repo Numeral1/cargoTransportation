@@ -5,27 +5,30 @@ import com.innowise.cargo_transportation.core.dto.request.UserRequest;
 import com.innowise.cargo_transportation.core.dto.response.UserListResponse;
 import com.innowise.cargo_transportation.core.dto.response.UserResponse;
 import com.innowise.cargo_transportation.core.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
 
     private final UserService userService;
+    private final BCryptPasswordEncoder encoder;
 
-    public UserRestController(UserService userService) {
-        this.userService = userService;
-    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<URI> create(@RequestBody @Valid UserRequest userRequest){
+       String password =  userRequest.getPassword();
+        userRequest.setPassword(encoder.encode(password));
         Long userId = userService.createUser(userRequest);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

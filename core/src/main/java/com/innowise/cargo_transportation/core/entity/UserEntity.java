@@ -1,19 +1,12 @@
 package com.innowise.cargo_transportation.core.entity;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -23,58 +16,41 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Size(max = 20)
     private String name;
 
-//    @NotNull
-//    @Size(max = 20)
     private String surname;
 
-//    @Size(max = 20)
     private String patronymic;
 
-//    @Column(name = "client_id")
     private Long clientId;
-
-//    @Past
-//    @Column(name = "born_date")
 
     private LocalDate bornDate;
 
-//    @NotNull
-//    @Email
-//    @Size(max = 50)
     private String email;
 
-//    @Size(max = 20)
     private String town;
 
     private String street;
 
-//    @Size(max = 20)
     private String house;
 
-//    @Size(max = 5)
     private String flat;
 
-//    @NotNull
-//    @Size(min = 5, max = 15)
     private String login;
 
-//    @NotNull
-//    @Size(min = 5, max = 72)
     private String password;
 
-//    @Size(max =30)
     @Column(name = "passport_num")
     private String passportNum;
 
-//    @Size(max = 50)
+    @Column(name = "refresh_token")
+    private String refreshToken;
+
     private String issuedBy;
 
-//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
 //    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-//    @Enumerated(EnumType.STRING)
-//    private Set<Role> UserRole;
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<UserRoleEntity> userRole;
 
 }
