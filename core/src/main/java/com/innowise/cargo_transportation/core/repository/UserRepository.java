@@ -12,5 +12,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long>, Queryds
     Optional<UserEntity> findById(Long id);
     UserEntity findByLogin (String login);
     UserEntity findByRefreshToken (String token);
+    UserEntity findByPassportNum(String passportNum);
 
 }

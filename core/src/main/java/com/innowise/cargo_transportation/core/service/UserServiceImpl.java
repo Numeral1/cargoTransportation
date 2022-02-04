@@ -8,6 +8,8 @@ import com.innowise.cargo_transportation.core.dto.response.UserResponse;
 import com.innowise.cargo_transportation.core.entity.QUserEntity;
 import com.innowise.cargo_transportation.core.entity.UserEntity;
 import com.innowise.cargo_transportation.core.entity.UserRoleEntity;
+import com.innowise.cargo_transportation.core.exception.LoginAlreadyExistException;
+import com.innowise.cargo_transportation.core.exception.PassportAlreadyExistException;
 import com.innowise.cargo_transportation.core.repository.RoleRepository;
 import com.innowise.cargo_transportation.core.repository.UserRepository;
 import com.querydsl.core.BooleanBuilder;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -44,7 +47,14 @@ public class UserServiceImpl implements UserService{
     @Override
     public Long createUser(UserRequest userRequest){
         UserEntity entity = UserRequest.fromUserRequest(userRequest,userRequest.getPassword());
-
+        UserEntity userRepositoryByLogin = userRepository.findByLogin(userRequest.getLogin());
+        UserEntity userRepositoryByPassport = userRepository.findByPassportNum(userRequest.getPassportNum());
+        if (userRepositoryByLogin != null){
+            throw new LoginAlreadyExistException("Login already exists");
+        }
+        if (userRepositoryByPassport != null){
+            throw new PassportAlreadyExistException("PassportNum already exists");
+        }
         userRepository.save(entity);
         Set<UserRoleEntity> roleEntityList = userRequest.getUserRoles().stream()
                 .map(UserRoleEntity::new)
@@ -58,11 +68,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserResponse findUserById(Long id){
         Optional<UserEntity> byId = userRepository.findById(id);
-
-//        roleRepository.findByUserId(id).get();
-//        Set<UserRoleEntity> userRoles = Collections.singleton();
-//        user.setUserRole(userRoles);
-//        user.setUserRole(userRoles);
+        if (byId == null){
+            throw  new NoSuchElementException("User with id: " + id + "not found");
+        }
         return new UserResponse(byId.get());
     }
 
@@ -148,5 +156,12 @@ public class UserServiceImpl implements UserService{
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User with id: " + id + " not found"));
         user.setRefreshToken(token);
+    }
+
+    private void ifLoginExist(String login){
+        UserEntity userRepositoryByLogin = userRepository.findByLogin(login);
+        if (userRepositoryByLogin != null){
+            throw new LoginAlreadyExistException("Login already exists");
+        }
     }
 }
