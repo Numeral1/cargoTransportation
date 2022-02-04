@@ -2,29 +2,27 @@ package com.innowise.cargo_transportation.web.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class ErrorResponse {
+    private final Instant timestamp;
+    private final int status;
+    private final List<String> messages;
 
-    private LocalDateTime timestamp;
-    private int status;
-    private List<String> errors;
-
-    public ErrorResponse(int status, List<String> errors) {
-        timestamp = LocalDateTime.now();
+    public ErrorResponse(int status, List<String> messages) {
+        timestamp = Instant.now();
         this.status = status;
-        this.errors = errors;
+        this.messages = messages;
+
     }
 
-    public static ErrorResponse of(int status, String... errors) {
-        return new ErrorResponse(status, new LinkedList<>(Arrays.asList(errors)));
+    public static ErrorResponse of(int httpStatus, String... message) {
+        return new ErrorResponse( httpStatus,new LinkedList<>(Arrays.asList(message)));
     }
 }
