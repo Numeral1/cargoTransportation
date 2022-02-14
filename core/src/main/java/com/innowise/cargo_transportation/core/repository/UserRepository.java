@@ -7,9 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Long>, QuerydslPredicateExecutor<UserEntity> {
+public interface UserRepository extends CommonRepository<UserEntity, Long> {
 
-    Optional<UserEntity> findById(Long id);
     UserEntity findByLogin (String login);
     UserEntity findByRefreshToken (String token);
     UserEntity findByPassportNum(String passportNum);

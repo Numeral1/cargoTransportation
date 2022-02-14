@@ -14,6 +14,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/users")
@@ -55,10 +57,7 @@ public class UserRestController {
 
     @PutMapping("/{id}")
     public void updateUserById(@PathVariable("id") Long id, @RequestBody UserRequest userRequest){
-
-         userService.updateUser(id, userRequest);
+        userService.updateUser(id, userRequest);
     }
-
-
 
 }

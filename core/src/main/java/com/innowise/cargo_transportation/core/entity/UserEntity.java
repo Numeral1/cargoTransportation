@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -22,7 +21,9 @@ public class UserEntity {
 
     private String patronymic;
 
-    private Long clientId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id")
+    private ClientEntity client;
 
     private LocalDate bornDate;
 
@@ -48,7 +49,6 @@ public class UserEntity {
 
     private String issuedBy;
 
-//    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<UserRoleEntity> userRole;
