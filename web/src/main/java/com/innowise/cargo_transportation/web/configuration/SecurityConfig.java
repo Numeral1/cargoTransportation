@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -40,10 +39,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                    .antMatchers(HttpMethod.POST, "/api/users").hasAuthority(Role.ADMIN.name())
-                    .antMatchers(HttpMethod.DELETE, "/api/users/**").hasAuthority(Role.ADMIN.name())
-                    .antMatchers(HttpMethod.GET,"/api/users/**").hasAuthority(Role.ADMIN.name())
-                    .antMatchers(HttpMethod.PUT,"/api/users/**").hasAuthority(Role.ADMIN.name())
+                    .antMatchers(HttpMethod.POST, "/api/users").hasAuthority(Role.SYS_ADMIN.name())
+                    .antMatchers(HttpMethod.DELETE, "/api/users/**").hasAuthority(Role.SYS_ADMIN.name())
+                    .antMatchers(HttpMethod.GET,"/api/users/**").hasAuthority(Role.SYS_ADMIN.name())
+                    .antMatchers(HttpMethod.PUT,"/api/users/**").hasAuthority(Role.SYS_ADMIN.name())
+                    .antMatchers(HttpMethod.POST,"/api/clients").hasAuthority(Role.SYS_ADMIN.name())
+                    .antMatchers(HttpMethod.GET,"/api/clients/**").hasAuthority(Role.SYS_ADMIN.name())
+                    .antMatchers(HttpMethod.PUT,"/api/clients/**").hasAuthority(Role.SYS_ADMIN.name())
+                    .antMatchers(HttpMethod.DELETE,"/api/clients/**").hasAuthority(Role.SYS_ADMIN.name())
                     .antMatchers("/api/sign-in", "/api/refresh", "/api/logout", "/api/about").permitAll()
             .anyRequest().denyAll()
                 .and()

@@ -1,5 +1,6 @@
 package com.innowise.cargo_transportation.core.dto.request;
 
+import com.innowise.cargo_transportation.core.entity.ClientEntity;
 import com.innowise.cargo_transportation.core.entity.Role;
 import com.innowise.cargo_transportation.core.entity.UserEntity;
 import lombok.AllArgsConstructor;
@@ -72,11 +73,12 @@ public class UserRequest {
 
     public static UserEntity fromUserRequest(UserRequest userRequest, String encodedPassword){
         UserEntity userEntity = new UserEntity();
+        ClientEntity clientEntity = new ClientEntity(userRequest.getClientId());
         userEntity.setId(userRequest.getId());
         userEntity.setName(userRequest.getName());
         userEntity.setSurname(userRequest.getSurname());
         userEntity.setPatronymic(userRequest.getPatronymic());
-        userEntity.setClientId(userRequest.getClientId());
+        userEntity.setClient(clientEntity);
         userEntity.setBornDate(userRequest.getBornDate());
         userEntity.setEmail(userRequest.getEmail());
         userEntity.setTown(userRequest.getTown());

@@ -35,7 +35,7 @@ public class UserResponse {
         surname = userEntity.getSurname();
         patronymic = (userEntity.getPatronymic());
         bornDate = userEntity.getBornDate();
-        clientId = userEntity.getClientId();
+        clientId = userEntity.getClient().getId();
         email = userEntity.getEmail();
         town = userEntity.getTown();
         street = userEntity.getStreet();

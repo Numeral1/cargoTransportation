@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService{
         }
         return new UserResponse(byId.get());
     }
-
+    @Transactional(readOnly = true)
     @Override
     public UserResponse getUserByLogin(String login) {
         UserEntity user = userRepository.findByLogin(login);
@@ -82,6 +82,7 @@ public class UserServiceImpl implements UserService{
         }
         return new UserResponse(user);
     }
+
     @Override
     public UserResponse getUserByRefreshToken(String token) {
         UserEntity user = userRepository.findByRefreshToken(token);
@@ -92,12 +93,13 @@ public class UserServiceImpl implements UserService{
     }
 
 
-
+    @Transactional
     @Override
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void updateUser(Long id, UserRequest userRequest){
         String encodedPassword = bCryptPasswordEncoder.encode(userRequest.getPassword());
@@ -105,19 +107,14 @@ public class UserServiceImpl implements UserService{
         entity.setId(id);
         userRepository.save(entity);
     }
+    @Transactional(readOnly = true)
     @Override
     public UserListResponse findList(UserParamsRequest params) {
         Pageable pageable = PageRequest.of(params.getPageNumber(), params.getPageSize());
 
         BooleanBuilder booleanBuilder = buildWhere(params);
-        Iterable<UserEntity> all = userRepository.findAll(booleanBuilder, pageable);
-        long count = userRepository.count();
-
-        List<UserResponse> list = StreamSupport.stream(all.spliterator(), false)
-                .map(UserResponse::new)
-                .collect(Collectors.toList());
-
-        return new UserListResponse(list, count);
+        Page<UserEntity> page = userRepository.findAll(booleanBuilder, pageable);
+        return new UserListResponse(page.map(UserResponse::new).getContent(), page.getTotalElements());
     }
 
     private BooleanBuilder buildWhere(UserParamsRequest params) {
@@ -164,4 +161,5 @@ public class UserServiceImpl implements UserService{
             throw new LoginAlreadyExistException("Login already exists");
         }
     }
+
 }
