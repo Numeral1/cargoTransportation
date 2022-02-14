@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ClientListResponse {
     private List<ClientResponse> content;
-    private long totalElement;
+    private long totalElements;
 
 
 }

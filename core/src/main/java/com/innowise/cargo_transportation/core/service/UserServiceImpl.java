@@ -32,11 +32,9 @@ import java.util.stream.StreamSupport;
 @RequiredArgsConstructor
 @Data
 public class UserServiceImpl implements UserService{
-
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
 
     @PersistenceContext
     private final EntityManager entityManager;
@@ -73,6 +71,7 @@ public class UserServiceImpl implements UserService{
         }
         return new UserResponse(byId.get());
     }
+
     @Transactional(readOnly = true)
     @Override
     public UserResponse getUserByLogin(String login) {
@@ -92,7 +91,6 @@ public class UserServiceImpl implements UserService{
         return new UserResponse(user);
     }
 
-
     @Transactional
     @Override
     public void deleteUserById(Long id) {
@@ -107,6 +105,7 @@ public class UserServiceImpl implements UserService{
         entity.setId(id);
         userRepository.save(entity);
     }
+
     @Transactional(readOnly = true)
     @Override
     public UserListResponse findList(UserParamsRequest params) {

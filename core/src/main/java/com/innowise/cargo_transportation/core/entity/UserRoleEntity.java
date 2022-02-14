@@ -15,12 +15,10 @@ public class UserRoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     @Target(Role.class)
     private Role role;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity user;

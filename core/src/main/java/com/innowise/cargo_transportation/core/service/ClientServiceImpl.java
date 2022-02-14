@@ -18,14 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Data
 @Service
 public class ClientServiceImpl implements ClientService{
-
     private final ClientRepository clientRepository;
 
     @Transactional
@@ -36,6 +32,7 @@ public class ClientServiceImpl implements ClientService{
         clientRepository.save(clientEntity);
         return clientEntity.getId();
     }
+
     @Transactional(readOnly = true)
     @Override
     public ClientResponse findClientById(Long id) {
@@ -43,6 +40,7 @@ public class ClientServiceImpl implements ClientService{
                 .orElseThrow(() -> new NoSuchElementException("Client with id:" + id + "does not exists"));
         return new ClientResponse(entity);
     }
+
     @Transactional
     @Override
     public void updateClient(Long id, ClientRequest clientRequest) {
@@ -71,6 +69,7 @@ public class ClientServiceImpl implements ClientService{
         }
         return booleanBuilder;
     }
+
     @Transactional
     @Override
     public void deleteClientsByIdList(List<Long> idList) {
