@@ -14,17 +14,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
-
     private final UserService userService;
     private final BCryptPasswordEncoder encoder;
-
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

@@ -1,6 +1,6 @@
 package com.innowise.cargo_transportation.web.security.jwt;
 
-import com.innowise.cargo_transportation.core.entity.Role;
+import com.innowise.cargo_transportation.core.entity.UserRole;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
@@ -43,10 +43,10 @@ public class JwtProvider {
         secretKey = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String createToken(String login, Long userId, Set<Role> roles) {
+    public String createToken(String login, Long userId, Set<UserRole> userRoles) {
         Claims claims = Jwts.claims().setSubject(login);
         claims.put(CLIENT_ID_CLAIMS_KEY, userId);
-        claims.put(USER_ROLES_CLAIMS_KEY, roles);
+        claims.put(USER_ROLES_CLAIMS_KEY, userRoles);
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + accessTokenValidityInMilliseconds);

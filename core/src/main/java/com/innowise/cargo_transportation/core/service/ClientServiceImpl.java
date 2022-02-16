@@ -1,10 +1,11 @@
 package com.innowise.cargo_transportation.core.service;
 
+
 import com.innowise.cargo_transportation.core.dto.request.ClientParamsRequest;
 import com.innowise.cargo_transportation.core.dto.request.ClientRequest;
 import com.innowise.cargo_transportation.core.dto.response.ClientListResponse;
 import com.innowise.cargo_transportation.core.dto.response.ClientResponse;
-import com.innowise.cargo_transportation.core.entity.ApprovalStatus;
+import com.innowise.cargo_transportation.core.entity.ClientApprovalStatus;
 import com.innowise.cargo_transportation.core.entity.ClientEntity;
 import com.innowise.cargo_transportation.core.entity.QClientEntity;
 import com.innowise.cargo_transportation.core.repository.ClientRepository;
@@ -27,8 +28,8 @@ public class ClientServiceImpl implements ClientService{
     @Transactional
     @Override
     public Long createClient(ClientRequest clientRequest) {
-        ClientEntity clientEntity = ClientRequest.fromClientRequest(clientRequest);
-        clientEntity.setApprovalStatus(ApprovalStatus.DISABLE);
+        ClientEntity clientEntity = clientRequest.toEntity();
+        clientEntity.setClientApprovalStatus(ClientApprovalStatus.DISABLE);
         clientRepository.save(clientEntity);
         return clientEntity.getId();
     }
@@ -44,7 +45,7 @@ public class ClientServiceImpl implements ClientService{
     @Transactional
     @Override
     public void updateClient(Long id, ClientRequest clientRequest) {
-        ClientEntity client = ClientRequest.fromClientRequest(clientRequest);
+        ClientEntity client = clientRequest.toEntity();
         client.setId(id);
         clientRepository.save(client);
     }
@@ -64,8 +65,8 @@ public class ClientServiceImpl implements ClientService{
         if (params.getName() != null){
             booleanBuilder.and(QClientEntity.clientEntity.name.like("%" + params.getName() + "%"));
         }
-        if (params.getStatus() != null){
-            booleanBuilder.and(QClientEntity.clientEntity.status.eq(params.getStatus()));
+        if (params.getClientStatus() != null){
+            booleanBuilder.and(QClientEntity.clientEntity.status.eq(params.getClientStatus()));
         }
         return booleanBuilder;
     }
@@ -81,7 +82,7 @@ public class ClientServiceImpl implements ClientService{
     public void activateClientById(Long id) {
         ClientEntity entity= clientRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Client with id:" + id + "does not exists"));
-        entity.setApprovalStatus(ApprovalStatus.ENABLE);
+        entity.setClientApprovalStatus(ClientApprovalStatus.ENABLE);
         clientRepository.save(entity);
     }
 }

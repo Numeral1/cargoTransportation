@@ -21,12 +21,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +42,7 @@ public class UserServiceImpl implements UserService{
     @Transactional
     @Override
     public Long createUser(UserRequest userRequest){
-        UserEntity entity = UserRequest.fromUserRequest(userRequest,userRequest.getPassword());
+        UserEntity entity = userRequest.toEntity();
         UserEntity userRepositoryByLogin = userRepository.findByLogin(userRequest.getLogin());
         UserEntity userRepositoryByPassport = userRepository.findByPassportNum(userRequest.getPassportNum());
         if (userRepositoryByLogin != null){
@@ -54,7 +52,7 @@ public class UserServiceImpl implements UserService{
             throw new PassportAlreadyExistException("PassportNum already exists");
         }
         userRepository.save(entity);
-        Set<UserRoleEntity> roleEntityList = userRequest.getUserRoles().stream()
+        Set<UserRoleEntity> roleEntityList = userRequest.getUserUserRoles().stream()
                 .map(UserRoleEntity::new)
                 .peek(e -> e.setUser(entity))
                 .collect(Collectors.toSet());
@@ -101,7 +99,8 @@ public class UserServiceImpl implements UserService{
     @Override
     public void updateUser(Long id, UserRequest userRequest){
         String encodedPassword = bCryptPasswordEncoder.encode(userRequest.getPassword());
-        UserEntity entity = UserRequest.fromUserRequest(userRequest, encodedPassword);
+        userRequest.setPassword(encodedPassword);
+        UserEntity entity = userRequest.toEntity();
         entity.setId(id);
         userRepository.save(entity);
     }

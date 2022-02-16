@@ -15,10 +15,10 @@ public class ClientEntity {
     private Long id;
     private String name;
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private ClientStatus status;
     @Enumerated(EnumType.STRING)
     @Column(name = "approval_status")
-    private ApprovalStatus approvalStatus;
+    private ClientApprovalStatus clientApprovalStatus;
 
     public ClientEntity(Long clientId) {
         id = clientId;
