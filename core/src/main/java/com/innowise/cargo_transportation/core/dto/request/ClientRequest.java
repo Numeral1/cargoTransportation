@@ -1,7 +1,7 @@
 package com.innowise.cargo_transportation.core.dto.request;
 
 import com.innowise.cargo_transportation.core.entity.ClientEntity;
-import com.innowise.cargo_transportation.core.entity.Status;
+import com.innowise.cargo_transportation.core.entity.ClientStatus;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -14,8 +14,8 @@ public class ClientRequest {
     @NotNull(message = "Client name should not be null")
     @Size(max = 30, message = "Client name must contain less than 30 characters")
     private String name;
-    @NotNull(message = "Client status should not be null")
-    private Status status;
+    @NotNull(message = "Client clientStatus should not be null")
+    private ClientStatus status;
     @NotNull(message = "AdminInfo should not be null")
     private UserRequest adminInfo;
 

@@ -35,7 +35,7 @@ public class SecurityServiceImpl implements SecurityService{
                 throw new JwtAuthenticationException("Invalid username or password");
             }
 
-            String accessToken = jwtProvider.createToken(login, user.getId(), user.getRoles());
+            String accessToken = jwtProvider.createToken(login, user.getId(), user.getUserRoles());
             String refreshToken = jwtProvider.createRefreshToken(login, user.getId());
             userService.updateUserRefreshToken(user.getId(), refreshToken);
             return accessToken + " " + refreshToken;
@@ -59,7 +59,7 @@ public class SecurityServiceImpl implements SecurityService{
         }
         refreshToken = jwtProvider.createRefreshToken(user.getLogin(), user.getId());
         userService.updateUserRefreshToken(user.getId(), refreshToken);
-        String accessToken = jwtProvider.createToken(user.getLogin(), user.getId(), user.getRoles());
+        String accessToken = jwtProvider.createToken(user.getLogin(), user.getId(), user.getUserRoles());
         return accessToken + " " + refreshToken;
     }
 

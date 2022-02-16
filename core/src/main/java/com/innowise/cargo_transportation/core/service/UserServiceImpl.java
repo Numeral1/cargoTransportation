@@ -21,12 +21,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +52,7 @@ public class UserServiceImpl implements UserService{
             throw new PassportAlreadyExistException("PassportNum already exists");
         }
         userRepository.save(entity);
-        Set<UserRoleEntity> roleEntityList = userRequest.getUserRoles().stream()
+        Set<UserRoleEntity> roleEntityList = userRequest.getUserUserRoles().stream()
                 .map(UserRoleEntity::new)
                 .peek(e -> e.setUser(entity))
                 .collect(Collectors.toSet());

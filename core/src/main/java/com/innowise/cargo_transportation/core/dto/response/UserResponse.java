@@ -1,6 +1,6 @@
 package com.innowise.cargo_transportation.core.dto.response;
 
-import com.innowise.cargo_transportation.core.entity.Role;
+import com.innowise.cargo_transportation.core.entity.UserRole;
 import com.innowise.cargo_transportation.core.entity.UserEntity;
 import com.innowise.cargo_transportation.core.entity.UserRoleEntity;
 import lombok.Data;
@@ -26,7 +26,7 @@ public class UserResponse {
     private String password;
     private String passportNum;
     private String issuedBy;
-    private Set<Role> roles;
+    private Set<UserRole> userRoles;
 
 
     public UserResponse(UserEntity userEntity) {
@@ -45,7 +45,7 @@ public class UserResponse {
         password = userEntity.getPassword();
         passportNum = userEntity.getPassportNum();
         issuedBy = userEntity.getIssuedBy();
-        roles = userEntity.getUserRole().stream()
+        userRoles = userEntity.getUserRole().stream()
                 .map(UserRoleEntity::getRole)
                 .collect(Collectors.toSet());
     }

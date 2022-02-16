@@ -1,6 +1,6 @@
 package com.innowise.cargo_transportation.core.dto.request;
 
-import com.innowise.cargo_transportation.core.entity.Status;
+import com.innowise.cargo_transportation.core.entity.ClientStatus;
 import lombok.Data;
 
 @Data
@@ -9,5 +9,5 @@ public class ClientParamsRequest {
     private int pageSize = 3;
     private Long id;
     private String name;
-    private Status status;
+    private ClientStatus clientStatus;
 }

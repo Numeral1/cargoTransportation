@@ -1,6 +1,6 @@
 package com.innowise.cargo_transportation.web.security.user_security_dto;
 
-import com.innowise.cargo_transportation.core.entity.ApprovalStatus;
+import com.innowise.cargo_transportation.core.entity.ClientApprovalStatus;
 import com.innowise.cargo_transportation.core.entity.ClientEntity;
 import com.innowise.cargo_transportation.core.entity.UserEntity;
 import com.innowise.cargo_transportation.core.entity.UserRoleEntity;
@@ -54,6 +54,6 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() {
         ClientEntity clientEntity = userEntity.getClient();
-        return clientEntity.getApprovalStatus() != ApprovalStatus.DISABLE;
+        return clientEntity.getClientApprovalStatus() != ClientApprovalStatus.DISABLE;
     }
 }

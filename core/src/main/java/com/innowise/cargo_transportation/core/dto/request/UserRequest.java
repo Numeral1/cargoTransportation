@@ -1,7 +1,7 @@
 package com.innowise.cargo_transportation.core.dto.request;
 
 import com.innowise.cargo_transportation.core.entity.ClientEntity;
-import com.innowise.cargo_transportation.core.entity.Role;
+import com.innowise.cargo_transportation.core.entity.UserRole;
 import com.innowise.cargo_transportation.core.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -69,7 +69,7 @@ public class UserRequest {
     @Size(max = 50, message = "Issued by must contain less than 50 characters")
     private String issuedBy;
 
-    private Set<Role> userRoles;
+    private Set<UserRole> userUserRoles;
 
     public static UserEntity fromUserRequest(UserRequest userRequest, String encodedPassword){
         UserEntity userEntity = new UserEntity();
