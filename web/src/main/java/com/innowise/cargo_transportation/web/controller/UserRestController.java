@@ -19,11 +19,8 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
-
     private final UserService userService;
     private final BCryptPasswordEncoder encoder;
-
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

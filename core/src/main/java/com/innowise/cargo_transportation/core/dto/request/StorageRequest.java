@@ -19,12 +19,11 @@ public class StorageRequest {
     @NotNull(message = "Client id should not be null")
     private Long clientId;
 
-    public static StorageEntity fromStorageRequest(StorageRequest storageRequest){
+
+    public StorageEntity toEntity() {
         StorageEntity storageEntity = new StorageEntity();
-//        ClientEntity clientEntity = new ClientEntity();
-        storageEntity.setName(storageRequest.getName());
-        storageEntity.setAddress(storageRequest.getAddress());
-//        storageEntity.setClientId(storageRequest.getClientId());
+        storageEntity.setName(name);
+        storageEntity.setAddress(address);
         return storageEntity;
     }
 }

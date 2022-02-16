@@ -19,12 +19,11 @@ public class ClientRequest {
     @NotNull(message = "AdminInfo should not be null")
     private UserRequest adminInfo;
 
-    public static ClientEntity fromClientRequest(ClientRequest request) {
-        ClientEntity clientEntity = new ClientEntity();
-        clientEntity.setName(request.getName());
-        clientEntity.setStatus(request.getStatus());
-
-        return clientEntity;
+    public ClientEntity toEntity(){
+        ClientEntity client = new ClientEntity();
+        client.setName(name);
+        client.setStatus(status);
+        return client;
     }
 
 

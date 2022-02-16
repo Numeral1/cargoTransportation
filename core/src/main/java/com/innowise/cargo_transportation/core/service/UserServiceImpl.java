@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService{
     @Transactional
     @Override
     public Long createUser(UserRequest userRequest){
-        UserEntity entity = UserRequest.fromUserRequest(userRequest,userRequest.getPassword());
+        UserEntity entity = userRequest.toEntity();
         UserEntity userRepositoryByLogin = userRepository.findByLogin(userRequest.getLogin());
         UserEntity userRepositoryByPassport = userRepository.findByPassportNum(userRequest.getPassportNum());
         if (userRepositoryByLogin != null){
@@ -99,7 +99,8 @@ public class UserServiceImpl implements UserService{
     @Override
     public void updateUser(Long id, UserRequest userRequest){
         String encodedPassword = bCryptPasswordEncoder.encode(userRequest.getPassword());
-        UserEntity entity = UserRequest.fromUserRequest(userRequest, encodedPassword);
+        userRequest.setPassword(encodedPassword);
+        UserEntity entity = userRequest.toEntity();
         entity.setId(id);
         userRepository.save(entity);
     }

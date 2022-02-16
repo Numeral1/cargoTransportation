@@ -28,7 +28,7 @@ public class ClientServiceImpl implements ClientService{
     @Transactional
     @Override
     public Long createClient(ClientRequest clientRequest) {
-        ClientEntity clientEntity = ClientRequest.fromClientRequest(clientRequest);
+        ClientEntity clientEntity = clientRequest.toEntity();
         clientEntity.setClientApprovalStatus(ClientApprovalStatus.DISABLE);
         clientRepository.save(clientEntity);
         return clientEntity.getId();
@@ -45,7 +45,7 @@ public class ClientServiceImpl implements ClientService{
     @Transactional
     @Override
     public void updateClient(Long id, ClientRequest clientRequest) {
-        ClientEntity client = ClientRequest.fromClientRequest(clientRequest);
+        ClientEntity client = clientRequest.toEntity();
         client.setId(id);
         clientRepository.save(client);
     }

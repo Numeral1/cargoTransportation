@@ -30,7 +30,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public Long createStorage(StorageRequest storageRequest) {
-        StorageEntity entity = StorageRequest.fromStorageRequest(storageRequest);
+        StorageEntity entity = storageRequest.toEntity();
         storageRepository.save(entity);
         return entity.getId();
     }
@@ -38,7 +38,7 @@ public class StorageServiceImpl implements StorageService {
     @Transactional
     @Override
     public void updateStorage(Long id, StorageRequest storageRequest) {
-        StorageEntity storage = StorageRequest.fromStorageRequest(storageRequest);
+        StorageEntity storage = storageRequest.toEntity();
         storage.setId(id);
         storageRepository.save(storage);
     }
@@ -50,6 +50,7 @@ public class StorageServiceImpl implements StorageService {
                 .orElseThrow(() -> new NoSuchElementException("Client with id:" + id + "does not exists"));
         return new StorageResponse(entity);
     }
+
     @Transactional(readOnly = true)
     @Override
     public StorageListResponse findList(StorageParamRequest storageParams) {
@@ -66,6 +67,7 @@ public class StorageServiceImpl implements StorageService {
         }
         return booleanBuilder;
     }
+
     @Transactional
     @Override
     public void deleteStoragesByIdList(List<Long> idList) {
