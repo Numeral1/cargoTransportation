@@ -42,12 +42,12 @@ public class ClientRestController {
     }
 
     @GetMapping("/{id}")
-    public ClientResponse findById(@PathVariable("id") Long id) {
+    public ClientResponse findById(@PathVariable("id") long id) {
         return clientService.findClientById(id);
     }
 
     @PutMapping("/{id}")
-    public void updateClientById(@PathVariable("id") Long id, @RequestBody ClientRequest clientRequest) {
+    public void updateClientById(@PathVariable("id") long id, @RequestBody ClientRequest clientRequest) {
         clientService.updateClient(id, clientRequest);
     }
 
@@ -62,7 +62,7 @@ public class ClientRestController {
     }
 
     @PutMapping("/activate/{id}")
-    public void activateClient(@PathVariable("id") Long id) {
+    public void activateClient(@PathVariable("id") long id) {
         clientService.activateClientById(id);
     }
 }

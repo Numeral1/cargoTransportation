@@ -31,12 +31,12 @@ public class ProductOwnerController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable("id") Long id, @RequestBody ProductOwnerRequest request){
+    public void update(@PathVariable("id") long id, @RequestBody ProductOwnerRequest request){
         service.updateProductOwner(id, request);
     }
 
     @GetMapping("/{id}")
-    public ProductOwnerResponse getById(@PathVariable("id") Long id){
+    public ProductOwnerResponse getById(@PathVariable("id") long id){
         return service.getProductOwnerById(id);
     }
 
