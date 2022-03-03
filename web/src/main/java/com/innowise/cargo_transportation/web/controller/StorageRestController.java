@@ -31,17 +31,17 @@ public class StorageRestController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable("id") Long id, @RequestBody StorageRequest storageRequest){
+    public void update(@PathVariable("id") long id, @RequestBody StorageRequest storageRequest){
         storageService.updateStorage(id, storageRequest);
     }
 
     @GetMapping("/{id}")
-    public StorageResponse findById(@PathVariable("id") Long id){
+    public StorageResponse findById(@PathVariable("id") long id){
         return storageService.findStorageById(id);
     }
 
     @GetMapping
-    public StorageListResponse findByFilter(@RequestBody StorageParamRequest storageParamRequest){
+    public StorageListResponse findByFilter(StorageParamRequest storageParamRequest){
         return storageService.findList(storageParamRequest);
     }
 

@@ -18,7 +18,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/users")
-public class UserRestController {
+ public class UserRestController {
     private final UserService userService;
     private final BCryptPasswordEncoder encoder;
 
@@ -37,7 +37,7 @@ public class UserRestController {
     }
 
     @GetMapping("/{id}")
-    public UserResponse findById(@PathVariable("id") Long id){
+    public UserResponse findById(@PathVariable("id") long id){
         return userService.findUserById(id);
     }
 
@@ -47,12 +47,12 @@ public class UserRestController {
     }
 
     @DeleteMapping
-    public void deleteUser(@RequestParam("id") Long id){
+    public void deleteUser(@RequestParam("id") long id){
         userService.deleteUserById(id);
     }
 
     @PutMapping("/{id}")
-    public void updateUserById(@PathVariable("id") Long id, @RequestBody UserRequest userRequest){
+    public void updateUserById(@PathVariable("id") long id, @RequestBody UserRequest userRequest){
         userService.updateUser(id, userRequest);
     }
 
