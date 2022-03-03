@@ -47,7 +47,7 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public StorageResponse findStorageById(Long id) {
         StorageEntity entity = storageRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Client with id:" + id + "does not exists"));
+                .orElseThrow(() -> new NoSuchElementException("Storage with id:" + id + "does not exists"));
         return new StorageResponse(entity);
     }
 

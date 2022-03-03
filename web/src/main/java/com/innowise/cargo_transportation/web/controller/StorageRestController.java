@@ -41,7 +41,7 @@ public class StorageRestController {
     }
 
     @GetMapping
-    public StorageListResponse findByFilter(@RequestBody StorageParamRequest storageParamRequest){
+    public StorageListResponse findByFilter(StorageParamRequest storageParamRequest){
         return storageService.findList(storageParamRequest);
     }
 
