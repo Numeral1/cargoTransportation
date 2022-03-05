@@ -109,7 +109,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserListResponse findList(UserParamsRequest params) {
         Pageable pageable = PageRequest.of(params.getPageNumber(), params.getPageSize());
-
         BooleanBuilder booleanBuilder = buildWhere(params);
         Page<UserEntity> page = userRepository.findAll(booleanBuilder, pageable);
         return new UserListResponse(page.map(UserResponse::new).getContent(), page.getTotalElements());

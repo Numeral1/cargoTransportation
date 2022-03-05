@@ -55,7 +55,6 @@ public class ClientServiceImpl implements ClientService{
     public ClientListResponse findList(ClientParamsRequest params) {
         Pageable pageable = PageRequest.of(params.getPageNumber(), params.getPageSize());
         BooleanBuilder booleanBuilder = buildWhere(params);
-
         Page<ClientEntity> page = clientRepository.findAll(booleanBuilder, pageable);
         return new ClientListResponse(page.map(ClientResponse::new).getContent(), page.getTotalElements());
     }

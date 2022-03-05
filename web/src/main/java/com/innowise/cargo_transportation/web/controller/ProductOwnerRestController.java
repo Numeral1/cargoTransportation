@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/product-owners")
-public class ProductOwnerController {
+public class ProductOwnerRestController {
     private final ProductOwnerService service;
 
     @PostMapping
