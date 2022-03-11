@@ -4,6 +4,7 @@ import com.innowise.cargo_transportation.core.dto.request.StorageParamRequest;
 import com.innowise.cargo_transportation.core.dto.request.StorageRequest;
 import com.innowise.cargo_transportation.core.dto.response.StorageListResponse;
 import com.innowise.cargo_transportation.core.dto.response.StorageResponse;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface StorageService {
 
     StorageResponse findStorageById(Long id);
 
-    StorageListResponse findList(StorageParamRequest storageParamRequest);
+    StorageListResponse findList(StorageParamRequest storageParamRequest, Pageable pageable);
 
     void deleteStoragesByIdList(List<Long> idList);
 }

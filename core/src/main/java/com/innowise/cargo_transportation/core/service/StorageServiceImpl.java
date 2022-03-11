@@ -4,8 +4,6 @@ import com.innowise.cargo_transportation.core.dto.request.StorageParamRequest;
 import com.innowise.cargo_transportation.core.dto.request.StorageRequest;
 import com.innowise.cargo_transportation.core.dto.response.StorageListResponse;
 import com.innowise.cargo_transportation.core.dto.response.StorageResponse;
-import com.innowise.cargo_transportation.core.entity.ClientEntity;
-import com.innowise.cargo_transportation.core.entity.QClientEntity;
 import com.innowise.cargo_transportation.core.entity.QStorageEntity;
 import com.innowise.cargo_transportation.core.entity.StorageEntity;
 import com.innowise.cargo_transportation.core.repository.ClientRepository;
@@ -13,7 +11,6 @@ import com.innowise.cargo_transportation.core.repository.StorageRepository;
 import com.querydsl.core.BooleanBuilder;
 import lombok.Data;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,8 +50,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Transactional(readOnly = true)
     @Override
-    public StorageListResponse findList(StorageParamRequest storageParams) {
-        Pageable pageable = PageRequest.of(storageParams.getPageNumber(), storageParams.getPageSize());
+    public StorageListResponse findList(StorageParamRequest storageParams, Pageable pageable) {
         BooleanBuilder booleanBuilder = buildWhere(storageParams);
         Page<StorageEntity> page = storageRepository.findAll(booleanBuilder, pageable);
         return new StorageListResponse(page.map(StorageResponse::new).getContent(), page.getTotalElements());

@@ -4,7 +4,5 @@ import lombok.Data;
 
 @Data
 public class StorageParamRequest {
-    private int pageNumber;
-    private int pageSize;
     private String name;
 }

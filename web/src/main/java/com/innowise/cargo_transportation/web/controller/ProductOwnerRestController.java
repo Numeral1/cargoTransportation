@@ -6,6 +6,8 @@ import com.innowise.cargo_transportation.core.dto.response.ProductOwnerListRespo
 import com.innowise.cargo_transportation.core.dto.response.ProductOwnerResponse;
 import com.innowise.cargo_transportation.core.service.ProductOwnerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/product-owners")
-public class ProductOwnerController {
+public class ProductOwnerRestController {
     private final ProductOwnerService service;
 
     @PostMapping
@@ -41,8 +43,8 @@ public class ProductOwnerController {
     }
 
     @GetMapping
-    public ProductOwnerListResponse getByFilter(ProductOwnerParamsRequest request){
-        return service.findList(request);
+    public ProductOwnerListResponse getByFilter(ProductOwnerParamsRequest request, @PageableDefault Pageable pageable){
+        return service.findList(request, pageable);
     }
 
     @DeleteMapping

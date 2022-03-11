@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -22,6 +23,7 @@ import java.util.NoSuchElementException;
 public class ProductOwnerServiceImpl implements ProductOwnerService{
     private final ProductOwnerRepository repository;
 
+    @Transactional
     @Override
     public Long createProductOwner(ProductOwnerRequest request) {
         ProductOwnerEntity entity = request.toEntity();
@@ -29,6 +31,7 @@ public class ProductOwnerServiceImpl implements ProductOwnerService{
         return entity.getId();
     }
 
+    @Transactional
     @Override
     public void updateProductOwner(Long id, ProductOwnerRequest request) {
         ProductOwnerEntity entity = request.toEntity();
@@ -36,6 +39,7 @@ public class ProductOwnerServiceImpl implements ProductOwnerService{
         repository.save(entity);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ProductOwnerResponse getProductOwnerById(Long id) {
         ProductOwnerEntity entity = repository.findById(id)
@@ -43,9 +47,9 @@ public class ProductOwnerServiceImpl implements ProductOwnerService{
         return new ProductOwnerResponse(entity);
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public ProductOwnerListResponse findList(ProductOwnerParamsRequest request) {
-        Pageable pageable = PageRequest.of(request.getPageSize(), request.getPageNumber());
+    public ProductOwnerListResponse findList(ProductOwnerParamsRequest request, Pageable pageable) {
         BooleanBuilder booleanBuilder = buildWhere(request);
         Page<ProductOwnerEntity> page = repository.findAll(booleanBuilder, pageable);
         return new ProductOwnerListResponse(page.map(ProductOwnerResponse::new).getContent(), page.getTotalElements());
@@ -59,6 +63,7 @@ public class ProductOwnerServiceImpl implements ProductOwnerService{
         return booleanBuilder;
     }
 
+    @Transactional
     @Override
     public void deleteById(List<Long> deleteList) {
         repository.deleteAllById(deleteList);

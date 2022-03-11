@@ -6,6 +6,9 @@ import com.innowise.cargo_transportation.core.dto.response.StorageListResponse;
 import com.innowise.cargo_transportation.core.dto.response.StorageResponse;
 import com.innowise.cargo_transportation.core.service.StorageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -40,9 +43,10 @@ public class StorageRestController {
         return storageService.findStorageById(id);
     }
 
+
     @GetMapping
-    public StorageListResponse findByFilter(StorageParamRequest storageParamRequest){
-        return storageService.findList(storageParamRequest);
+    public StorageListResponse findByFilter(StorageParamRequest storageParamRequest, @PageableDefault Pageable pageable){
+        return storageService.findList(storageParamRequest, pageable);
     }
 
     @DeleteMapping

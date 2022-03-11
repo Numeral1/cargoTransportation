@@ -24,6 +24,7 @@ public class StorageRequest {
         StorageEntity storageEntity = new StorageEntity();
         storageEntity.setName(name);
         storageEntity.setAddress(address);
+        storageEntity.setClientId(clientId);
         return storageEntity;
     }
 }
