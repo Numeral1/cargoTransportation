@@ -8,6 +8,8 @@ import com.innowise.cargo_transportation.core.dto.response.ClientResponse;
 import com.innowise.cargo_transportation.core.service.ClientService;
 import com.innowise.cargo_transportation.core.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -52,8 +54,8 @@ public class ClientRestController {
     }
 
     @GetMapping
-    public ClientListResponse findByFilter(ClientParamsRequest clientParamsRequest) {
-        return clientService.findList(clientParamsRequest);
+    public ClientListResponse findByFilter(ClientParamsRequest clientParamsRequest, @PageableDefault Pageable pageable) {
+        return clientService.findList(clientParamsRequest, pageable);
     }
 
     @DeleteMapping

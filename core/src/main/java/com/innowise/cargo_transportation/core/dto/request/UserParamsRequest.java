@@ -7,8 +7,6 @@ import java.time.LocalDate;
 
 @Data
 public class UserParamsRequest {
-    private int pageNumber;
-    private int pageSize = 3;
     private String name;
     private String surname;
     private String patronymic;

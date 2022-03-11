@@ -5,8 +5,6 @@ import lombok.Data;
 
 @Data
 public class CarParamRequest {
-    private int pageNumber;
-    private int pageSize;
     private String number;
     private Integer fuelConsumptionLess;
     private Integer fuelConsumptionMore;

@@ -6,6 +6,8 @@ import com.innowise.cargo_transportation.core.dto.response.CarListResponse;
 import com.innowise.cargo_transportation.core.dto.response.CarResponse;
 import com.innowise.cargo_transportation.core.service.CarService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -40,8 +42,8 @@ public class CarRestController {
     }
 
     @GetMapping
-    public CarListResponse getByFilter(CarParamRequest carParamRequest){
-        return service.findList(carParamRequest);
+    public CarListResponse getByFilter(CarParamRequest carParamRequest, @PageableDefault Pageable pageable){
+        return service.findList(carParamRequest, pageable);
     }
 
     @DeleteMapping

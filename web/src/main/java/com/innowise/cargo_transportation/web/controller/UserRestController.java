@@ -6,6 +6,8 @@ import com.innowise.cargo_transportation.core.dto.response.UserListResponse;
 import com.innowise.cargo_transportation.core.dto.response.UserResponse;
 import com.innowise.cargo_transportation.core.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -42,8 +44,8 @@ import java.net.URI;
     }
 
     @GetMapping
-    public UserListResponse findByFilter(UserParamsRequest userParamsRequest){
-        return userService.findList(userParamsRequest);
+    public UserListResponse findByFilter(UserParamsRequest userParamsRequest, @PageableDefault Pageable pageable){
+        return userService.findList(userParamsRequest, pageable);
     }
 
     @DeleteMapping

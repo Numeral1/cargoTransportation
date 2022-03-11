@@ -52,8 +52,7 @@ public class ClientServiceImpl implements ClientService{
 
     @Transactional(readOnly = true)
     @Override
-    public ClientListResponse findList(ClientParamsRequest params) {
-        Pageable pageable = PageRequest.of(params.getPageNumber(), params.getPageSize());
+    public ClientListResponse findList(ClientParamsRequest params, Pageable pageable) {
         BooleanBuilder booleanBuilder = buildWhere(params);
         Page<ClientEntity> page = clientRepository.findAll(booleanBuilder, pageable);
         return new ClientListResponse(page.map(ClientResponse::new).getContent(), page.getTotalElements());

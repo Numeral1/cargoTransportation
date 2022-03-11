@@ -4,7 +4,5 @@ import lombok.Data;
 
 @Data
 public class ProductOwnerParamsRequest {
-    private int pageNumber;
-    private int pageSize;
     private String name;
 }

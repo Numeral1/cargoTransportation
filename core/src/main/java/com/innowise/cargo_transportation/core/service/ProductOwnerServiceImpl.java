@@ -49,8 +49,7 @@ public class ProductOwnerServiceImpl implements ProductOwnerService{
 
     @Transactional(readOnly = true)
     @Override
-    public ProductOwnerListResponse findList(ProductOwnerParamsRequest request) {
-        Pageable pageable = PageRequest.of(request.getPageSize(), request.getPageNumber());
+    public ProductOwnerListResponse findList(ProductOwnerParamsRequest request, Pageable pageable) {
         BooleanBuilder booleanBuilder = buildWhere(request);
         Page<ProductOwnerEntity> page = repository.findAll(booleanBuilder, pageable);
         return new ProductOwnerListResponse(page.map(ProductOwnerResponse::new).getContent(), page.getTotalElements());

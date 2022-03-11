@@ -4,6 +4,7 @@ import com.innowise.cargo_transportation.core.dto.request.CarParamRequest;
 import com.innowise.cargo_transportation.core.dto.request.CarRequest;
 import com.innowise.cargo_transportation.core.dto.response.CarListResponse;
 import com.innowise.cargo_transportation.core.dto.response.CarResponse;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface CarService {
 
     CarResponse findCarById(long id);
 
-    CarListResponse findList(CarParamRequest carParamRequest);
+    CarListResponse findList(CarParamRequest carParamRequest, Pageable pageable);
 }

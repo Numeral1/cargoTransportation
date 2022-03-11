@@ -8,7 +8,6 @@ import com.innowise.cargo_transportation.core.entity.CarEntity;
 import com.innowise.cargo_transportation.core.entity.QCarEntity;
 import com.innowise.cargo_transportation.core.repository.CarRepository;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.NumberExpression;
 import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,8 +49,7 @@ public class CarServiceImpl implements CarService{
 
     @Transactional(readOnly = true)
     @Override
-    public CarListResponse findList(CarParamRequest carParamRequest) {
-        Pageable pageable = PageRequest.of(carParamRequest.getPageNumber(), carParamRequest.getPageSize());
+    public CarListResponse findList(CarParamRequest carParamRequest, Pageable pageable) {
         BooleanBuilder booleanBuilder = buildWhere(carParamRequest);
         Page<CarEntity> page = repository.findAll(booleanBuilder, pageable);
         return new CarListResponse(page.map(CarResponse::new).getContent(), page.getTotalElements());
@@ -62,17 +60,23 @@ public class CarServiceImpl implements CarService{
         if(paramRequest.getNumber() != null){
             booleanBuilder.and(QCarEntity.carEntity.number.like("%" + paramRequest.getNumber() + "%"));
         }
-        if(paramRequest.getFuelConsumptionLess() != null){
-            booleanBuilder.and(QCarEntity.carEntity.fuelConsumption.between(0, paramRequest.getFuelConsumptionLess()));
+        if(paramRequest.getFuelConsumptionLess() != null && paramRequest.getFuelConsumptionMore() != null){
+            booleanBuilder.and(QCarEntity.carEntity.fuelConsumption.between(paramRequest.getFuelConsumptionLess(), paramRequest.getFuelConsumptionMore()));
         }
-        if(paramRequest.getFuelConsumptionMore() != null){
-            booleanBuilder.and(QCarEntity.carEntity.fuelConsumption.between(paramRequest.getFuelConsumptionMore(), 200));
+        if(paramRequest.getFuelConsumptionLess() == null && paramRequest.getFuelConsumptionMore() != null){
+            booleanBuilder.and(QCarEntity.carEntity.fuelConsumption.between(0, paramRequest.getFuelConsumptionMore()));
         }
-        if(paramRequest.getLoadCapacityLess() != null){
-            booleanBuilder.and(QCarEntity.carEntity.loadCapacity.between(0, paramRequest.getLoadCapacityLess()));
+        if(paramRequest.getFuelConsumptionLess() != null && paramRequest.getFuelConsumptionMore() == null){
+            booleanBuilder.and(QCarEntity.carEntity.fuelConsumption.between(paramRequest.getFuelConsumptionLess(), 200));
         }
-        if(paramRequest.getLoadCapacityMore() != null){
-            booleanBuilder.and(QCarEntity.carEntity.loadCapacity.between(paramRequest.getLoadCapacityMore(), 30000));
+        if(paramRequest.getLoadCapacityMore() != null && paramRequest.getLoadCapacityLess() != null){
+            booleanBuilder.and(QCarEntity.carEntity.loadCapacity.between(paramRequest.getLoadCapacityLess(), paramRequest.getLoadCapacityMore()));
+        }
+        if(paramRequest.getLoadCapacityMore() != null && paramRequest.getLoadCapacityLess() == null){
+            booleanBuilder.and(QCarEntity.carEntity.loadCapacity.between(0, paramRequest.getLoadCapacityMore()));
+        }
+        if(paramRequest.getLoadCapacityMore() == null && paramRequest.getLoadCapacityLess() != null){
+            booleanBuilder.and(QCarEntity.carEntity.loadCapacity.between(paramRequest.getLoadCapacityLess(), Integer.MAX_VALUE));
         }
         if (paramRequest.getType() != null){
             booleanBuilder.and(QCarEntity.carEntity.carType.eq(paramRequest.getType()));
