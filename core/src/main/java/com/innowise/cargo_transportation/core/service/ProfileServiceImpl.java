@@ -4,10 +4,11 @@ import com.innowise.cargo_transportation.core.dto.request.ProfilePasswordRequest
 import com.innowise.cargo_transportation.core.dto.request.ProfileRequest;
 import com.innowise.cargo_transportation.core.dto.response.ProfileResponse;
 import com.innowise.cargo_transportation.core.entity.UserEntity;
-import com.innowise.cargo_transportation.core.exception.PasswordDoesntMatchException;
+import com.innowise.cargo_transportation.core.exception.ApplicationException;
 import com.innowise.cargo_transportation.core.repository.UserRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class ProfileServiceImpl implements ProfileService{
         String oldPassword = request.getOldPassword();
         String encodedNewPassword = bCryptPasswordEncoder.encode(newPassword);
         if (!bCryptPasswordEncoder.matches(oldPassword, userEntity.getPassword())){
-            throw new PasswordDoesntMatchException("The password doesn't match");
+            throw new ApplicationException("The password doesn't match", HttpStatus.CONFLICT);
         }
         userEntity.setPassword(encodedNewPassword);
         repository.save(userEntity);
